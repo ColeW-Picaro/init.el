@@ -4,9 +4,23 @@
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 (setq initial-scratch-message ";; Thank you rms, very cool!")
 
+
+;; Default font
+(set-default-font "Iosevka-14")
+
+;; themes directory
+(add-to-list 'load-path "~/.emacs.d/themes/")
+
+;; load path
+(add-to-list 'load-path "~/.emacs.d/packages/")
+
+;; elpa load path
+(add-to-list 'load-path "~/.emacs.d/elpa/")
+
 (eval-when-compile
   ;; Following line is not needed if use-package.el is in ~/.emacs.d
-  (add-to-list 'load-path "~/.emacs.d/elpa/")
+  (add-to-list 'load-path "~/.emacs.d/elpa/use-package")
+  (require 'bind-key)
   (require 'use-package))
   
 ;; For melpa
@@ -31,18 +45,6 @@
                   week))
       (message "%s" file)
       (delete-file file))))
-
-;; Default font
-(set-default-font "Iosevka-14")
-
-;; themes directory
-(add-to-list 'load-path "~/.emacs.d/themes/")
-
-;; load path
-(add-to-list 'load-path "~/.emacs.d/packages/")
-
-;; elpa load path
-(add-to-list 'load-path "~/.emacs.d/elpa/")
 
 ;; restart emacs in emacs
 (defun launch-separate-emacs-in-terminal ()
@@ -87,8 +89,6 @@
 ;; Hooks
 (add-hook 'prog-mode-hook #'auto-complete-mode)
 
-;; bind keys
-(require 'bind-key)
 
 ;; Use packages
 ;; (use-package afternoon-theme)
@@ -119,20 +119,12 @@
   (use-package web-beautify
     :ensure t))
 
-(use-package rainbow-mode
-  :ensure t
-  :after web-mode
-  :diminish rainbow-mode
-  :init (add-hook 'web-mode-hook 'rainbow-mode))
-
 (use-package company
   :ensure t
   :defer 2
   :diminish company-mode "complete"
   :config (global-company-mode)
   :bind ("C-\\" . company-complete-common))
-
-;;(use-package ewal)
 
 (use-package dashboard
   :ensure t
@@ -167,13 +159,6 @@
 (use-package dashboard-hackernews
   :ensure t)
 
-;;(use-package spotify
-;;  :load-path "packages/spotify.el/"
-;;  :config
-;;  (setq spotify-oauth2-client-secret "")
-;;  (setq spotify-oauth2-client-id "")
-;;  (setq spotify-transport 'connect))
-
 (use-package counsel-spotify
   :ensure t
   :config
@@ -194,7 +179,9 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#303030" "#ff4b4b" "#d7ff5f" "#fce94f" "#5fafd7" "#d18aff" "#afd7ff" "#c6c6c6"])
-)
+ '(package-selected-packages
+   (quote
+    (counsel-spotify dashboard-hackernews auto-complete counsel magit caml dashboard company rainbow-mode web-mode rainbow-delimiters gruvbox-theme use-package))))
 
 ;; Custom faces
 (custom-set-faces
