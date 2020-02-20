@@ -127,7 +127,7 @@
   :ensure t
   :config
   (dashboard-setup-startup-hook)
-  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-startup-banner 2)
   (setq dashboard-items '((recents  . 5)
                           (bookmarks . 5))))
 
@@ -162,6 +162,12 @@
 (use-package emojify
   :ensure t)
 
+(use-package google-c-style
+  :ensure t
+  :config
+  (add-hook 'c-mode-common-hook 'google-set-c-style)
+  (add-hook 'c-mode-common-hook 'google-make-newline-indent))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -175,9 +181,12 @@
 
 ;; Custom faces
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(line-number ((t (:background "#3c3836" :foreground "pale goldenrod"))))
- '(linum ((t (:background "#1d2021" :foreground "pale goldenrod"))))
-)
+ '(linum ((t (:background "#1d2021" :foreground "pale goldenrod")))))
 
 ;; Key Bindings
 (bind-key* "C-x C-b" 'ibuffer)
