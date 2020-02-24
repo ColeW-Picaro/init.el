@@ -15,6 +15,8 @@
       (package-refresh-contents)
       (package-install 'use-package)))
 
+(require 'use-package)
+
 ;; Memes
 (setq initial-scratch-message ";; Thank you rms, very cool!")
 
@@ -109,12 +111,6 @@
         web-mode-enable-current-column-highlight t)
   (use-package web-beautify
     :ensure t))
-
-(use-package rainbow-mode
-  :ensure t
-  :after web-mode
-  :diminish rainbow-mode
-  :init (add-hook 'web-mode-hook 'rainbow-mode))
 
 (use-package company
   :ensure t
