@@ -113,8 +113,13 @@
   )
 
 ;; Make this shit look good
+(use-package cherry-blossom-theme
+  :ensure t
+  :defer)
+
 (use-package gruvbox-theme
-  :ensure t)
+  :ensure t
+  :defer)
 
 ;; Journaling nerd
 (use-package org-journal
@@ -192,10 +197,14 @@
   :ensure t
   :config (ivy-mode))
 
+
 ;; auto-complete
 (use-package auto-complete
   :ensure t
-  :diminish (auto-complete-mode))
+  :diminish (auto-complete-mode)
+  :config
+  (ac-config-default)
+  :defer)
 
 ;; google's style guidlines
 (use-package google-c-style
@@ -215,35 +224,41 @@
   (([f8] . neotree-toggle)
    ("C-c t" . neotree)))
 
-
-(use-package doom-modeline
+;; mAKE This shit look good
+(use-package mood-line
   :ensure t
   :config
-  (doom-modeline-mode)
-  (setq doom-modeline-major-mode-color-icon t))
+  (mood-line-mode))
 
+
+;; poweruser
 (use-package multiple-cursors
   :ensure t)
+
+;; MAKE THIS SHIT LOOK FUCKING GOOD
+(use-package circadian
+  :ensure t
+  :config
+  (setq calendar-latitude 40.0)
+  (setq calendar-longitude -76.3)
+  (setq circadian-themes
+	'((:sunrise . gruvbox-light-hard)
+	  (:sunset . gruvbox-dark-hard)))
+  (circadian-setup))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#303030" "#ff4b4b" "#d7ff5f" "#fce94f" "#5fafd7" "#d18aff" "#afd7ff" "#c6c6c6"])
+ '(custom-safe-themes
+   (quote
+    ("04589c18c2087cd6f12c01807eed0bdaa63983787025c209b89c779c61c3a4c4" "b583823b9ee1573074e7cbfd63623fe844030d911e9279a7c8a5d16de7df0ed0" default)))
  '(package-selected-packages
    (quote
-    (ssh emojify ac-emoji counsel-spotify web-mode web-beautify w3m use-package rainbow-mode rainbow-delimiters monokai-theme markdown-preview-eww markdown-mode magit gruvbox-theme glsl-mode eww-lnum dired-hacks-utils dashboard-hackernews counsel company caml auto-complete afternoon-theme))))
+    (ssh emojify ac-emoji counsel-spotify web-mode web-beautify w3m use-package rainbow-mode rainbow-delimiters monokai-theme markdown-preview-eww markdown-mode magit gruvbox-theme glsl-mode eww-lnum dired-hacks-utils dashboard-hackernews counsel company caml auto-complete afternoon-theme)))
+ '(pdf-view-midnight-colors (quote ("#282828" . "#f9f5d7"))))
 
-;; Custom faces
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(line-number ((t (:background "#3c3836" :foreground "pale goldenrod"))))
- '(linum ((t (:background "#1d2021" :foreground "pale goldenrod")))))
 
 ;; Key Bindings
 (bind-keys* ("C-x C-b" . ibuffer)
