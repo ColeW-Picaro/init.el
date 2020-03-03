@@ -1,5 +1,6 @@
 ;;; Init.el --- my emacs config
 ;;; Commentary:
+;;; The editor of the gods
 ;;; Code:
 
 ;; Increase the garbage collection threshold to 100MB for a faster startup time.
