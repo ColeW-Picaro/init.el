@@ -261,12 +261,6 @@
 	  (:sunset . gruvbox-dark-hard)))
   (circadian-setup))
 
-(use-package helm
-  :ensure t
-  :bind
-  ("M-x" . helm-M-x)
-  :config
-  (helm-mode))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
