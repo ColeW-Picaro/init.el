@@ -14,18 +14,14 @@
 
 ;; Initialize the package management system (only at compile time).
 (eval-when-compile
-
   ;; Require the package manager.
   (require 'package)
-
   ;; Enable the MELPA repository.
   (unless (assoc-default "melpa" package-archives)
     (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t))
-
   ;; Initialize the package manager.
   (package-initialize)
   (package-refresh-contents)
-
   ;; Check for use-package. Install it if not already present.
   (unless (package-installed-p 'use-package)
     (package-install 'use-package))
@@ -38,7 +34,9 @@
 
 ;; Memes
 (setq initial-scratch-message ";; Thank you rms, very cool!")
-
+(defun shrug ()
+  "Header def for shrug ¯\_(ツ)_/¯."
+  )
 ;; Startup things
 (setq-default
  inhibit-startup-screen t
@@ -49,7 +47,11 @@
 (setq-default
  scroll-step 1
  c-default-style "google"
+ set-language-environment "UTF-8"
+ set-default-coding-systems 'utf-8
+ prettify-symbols-unprettify-at-point t
  )
+
 
 (defun enable-modes ()
   "All the modes."
@@ -60,13 +62,10 @@
   (show-paren-mode 1)
   (electric-indent-mode 1)
   (electric-pair-mode 1)
+  (global-prettify-symbols-mode 1)
   )
 
 (enable-modes)
-
-;; Default font
-(set-frame-font "Iosevka-14")
-
 ;; Kill all other buffers
 (defun kill-other-buffers ()
   "Kill all other buffers."
@@ -127,6 +126,8 @@
   :ensure t
   :config
   (setq org-journal-dir "~/Documents/journal/")
+  :bind
+  ("C-x C-j" . org-journal-new-entry)
   )
 
 ;; Readability
@@ -198,7 +199,6 @@
   :ensure t
   :config (ivy-mode))
 
-
 ;; auto-complete
 (use-package auto-complete
   :ensure t
@@ -243,23 +243,32 @@
   (setq calendar-latitude 40.0)
   (setq calendar-longitude -76.3)
   (setq circadian-themes
-	'((:sunrise . gruvbox-light-hard)
+	'((:sunrise . moe-light)
 	  (:sunset . gruvbox-dark-hard)))
   (circadian-setup))
+
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("04589c18c2087cd6f12c01807eed0bdaa63983787025c209b89c779c61c3a4c4" "b583823b9ee1573074e7cbfd63623fe844030d911e9279a7c8a5d16de7df0ed0" default)))
+ '(ansi-color-names-vector
+   ["#ebdbb2" "#9d0006" "#79740e" "#b57614" "#076678" "#8f3f71" "#427b58" "#3c3836"])
+ '(compilation-message-face (quote default))
  '(package-selected-packages
    (quote
     (ssh emojify ac-emoji counsel-spotify web-mode web-beautify w3m use-package rainbow-mode rainbow-delimiters monokai-theme markdown-preview-eww markdown-mode magit gruvbox-theme glsl-mode eww-lnum dired-hacks-utils dashboard-hackernews counsel company caml auto-complete afternoon-theme)))
- '(pdf-view-midnight-colors (quote ("#282828" . "#f9f5d7"))))
 
+)
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
 ;; Key Bindings
 (bind-keys* ("C-x C-b" . ibuffer)
