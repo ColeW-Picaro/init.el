@@ -141,6 +141,10 @@
   :ensure t
   :defer)
 
+(use-package moe-theme
+  :ensure t
+  :defer)
+
 ;; Journaling nerd
 (use-package org-journal
   :ensure t
