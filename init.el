@@ -47,12 +47,9 @@
 (setq-default
  scroll-step 1
  c-default-style "google"
- set-language-environment "UTF-8"
- set-default-coding-systems 'utf-8
- prettify-symbols-unprettify-at-point t
  )
 
-
+;; Function definitions
 (defun enable-modes ()
   "All the modes."
   (menu-bar-mode -1)
@@ -64,13 +61,34 @@
   (electric-pair-mode 1)
   (global-prettify-symbols-mode 1)
   )
-
 (enable-modes)
+
 ;; Kill all other buffers
 (defun kill-other-buffers ()
   "Kill all other buffers."
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+
+(defun switch-to-minibuffer-window ()
+  "Switch to the minibuffer window (if active)."
+  (interactive)
+  (when (active-minibuffer-window)
+    (select-window (active-minibuffer-window))))
+
+;; Init file
+(defun get-latest-init ()
+  "Get my latest init file."
+  (message "Downloading init file")
+  (url-copy-file "https://raw.githubusercontent.com/ColeW-Picaro/init.el/master/init.el" (concat user-emacs-directory "init.el"))
+  (byte-compile-init-file)
+  )
+
+(defun byte-compile-init-file ()
+  "Byte compile the init file."
+  (interactive)
+  (save-restriction
+    (message "Byte-compiling init file...")
+    (byte-compile-file (concat user-emacs-directory "init.el"))))
 
 ;; Disabled *Completions*
 (add-hook 'minibuffer-exit-hook
@@ -82,6 +100,8 @@
 ;; Disabled *Messages*
 (setq-default message-log-max nil)
 (kill-buffer "*Messages*")
+
+
 
 ;; package requires
 (require 'bind-key)
@@ -128,6 +148,8 @@
   (setq org-journal-dir "~/Documents/journal/")
   :bind
   ("C-x C-j" . org-journal-new-entry)
+  :hook
+  (org-journal-mode . org-mode)
   )
 
 ;; Readability
@@ -157,14 +179,6 @@
   (use-package web-beautify
     :ensure t))
 
-;; Auto complete
-(use-package company
-  :ensure t
-  :defer 2
-  :diminish company-mode "complete"
-  :config (global-company-mode)
-  :bind ("C-\\" . company-complete-common))
-
 ;; Dashboard
 (use-package dashboard
   :ensure t
@@ -186,7 +200,7 @@
 (use-package counsel
   :ensure t
   :config
-  (bind-key* "C-x C-f" 'counsel-find-file))
+  (counsel-mode))
 
 ;; swiper
 (use-package swiper
@@ -229,9 +243,9 @@
 (use-package mood-line
   :ensure t
   :config
-  (mood-line-mode))
-
-
+  (mood-line-mode)
+  :custom-face
+  (mood-line-unimportant-face ((t (:foreground)))))
 ;; poweruser
 (use-package multiple-cursors
   :ensure t)
@@ -247,7 +261,12 @@
 	  (:sunset . gruvbox-dark-hard)))
   (circadian-setup))
 
-
+(use-package helm
+  :ensure t
+  :bind
+  ("M-x" . helm-M-x)
+  :config
+  (helm-mode))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -271,19 +290,22 @@
  )
 
 ;; Key Bindings
-(bind-keys* ("C-x C-b" . ibuffer)
-            ("C-x p" . previous-multiframe-window)
-            ( "C-c C-s" . shrug)
-            ([f6] . visual-line-mode)
-            ([f7] . display-line-numbers-mode)
-            ("C-x RET" . eshell)
-            ("M-n" . scroll-up-line)
-	    ("M-p" . scroll-down-line)
-	    ("C-c C-i" . windmove-up)
-	    ("C-c C-k" . windmove-down)
-	    ("C-c C-j" . windmove-left)
-	    ("C-c C-l" . windmove-right)
-	    )
+(bind-keys*
+ ("C-x C-b" . ibuffer)
+ ("C-x p" . previous-multiframe-window)
+ ( "C-c C-s" . shrug)
+ ([f6] . visual-line-mode)
+ ([f7] . display-line-numbers-mode)
+ ("C-x RET" . eshell)
+ ("M-n" . scroll-up-line)
+ ("M-p" . scroll-down-line)
+ ("C-c C-i" . windmove-up)
+ ("C-c C-k" . windmove-down)
+ ("C-c C-j" . windmove-left)
+ ("C-c C-l" . windmove-right)
+ ("C-c C-c" . calendar)
+ ("C-c m" . switch-to-minibuffer-window)
+ )
 
 
 (provide 'init)
