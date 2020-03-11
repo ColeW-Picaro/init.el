@@ -204,7 +204,8 @@
 (use-package counsel
   :ensure t
   :config
-  (counsel-mode))
+  (counsel-mode)
+  (setq ivy-initial-inputs-alist nil))
 
 ;; swiper
 (use-package swiper
@@ -274,34 +275,36 @@
  '(ansi-color-names-vector
    ["#ebdbb2" "#9d0006" "#79740e" "#b57614" "#076678" "#8f3f71" "#427b58" "#3c3836"])
  '(compilation-message-face (quote default))
+ '(custom-safe-themes
+   (quote
+    ("a22f40b63f9bc0a69ebc8ba4fbc6b452a4e3f84b80590ba0a92b4ff599e53ad0" default)))
  '(package-selected-packages
    (quote
     (ssh emojify ac-emoji counsel-spotify web-mode web-beautify w3m use-package rainbow-mode rainbow-delimiters monokai-theme markdown-preview-eww markdown-mode magit gruvbox-theme glsl-mode eww-lnum dired-hacks-utils dashboard-hackernews counsel company caml auto-complete afternoon-theme)))
-
-)
+ '(pdf-view-midnight-colors (quote ("#fdf4c1" . "#1d2021"))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(mood-line-unimportant-face ((t (:foreground)))))
 
 ;; Key Bindings
 (bind-keys*
  ("C-x C-b" . ibuffer)
  ("C-x p" . previous-multiframe-window)
- ( "C-c C-s" . shrug)
+ ( "C-c s" . shrug)
  ([f6] . visual-line-mode)
  ([f7] . display-line-numbers-mode)
  ("C-x RET" . eshell)
  ("M-n" . scroll-up-line)
  ("M-p" . scroll-down-line)
- ("C-c C-i" . windmove-up)
- ("C-c C-k" . windmove-down)
- ("C-c C-j" . windmove-left)
- ("C-c C-l" . windmove-right)
- ("C-c C-c" . calendar)
+ ("C-c i" . windmove-up)
+ ("C-c k" . windmove-down)
+ ("C-c j" . windmove-left)
+ ("C-c l" . windmove-right)
+ ("C-c c" . calendar)
  ("C-c m" . switch-to-minibuffer-window)
  )
 
