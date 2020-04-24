@@ -77,9 +77,7 @@
 (defun get-latest-init ()
   "Get my latest init file."
   (message "Downloading init file")
-  (url-copy-file "https://raw.githubusercontent.com/ColeW-Picaro/init.el/master/init.el" (concat user-emacs-directory "init.el"))
-  (byte-compile-init-file)
-  )
+  (url-copy-file "https://raw.githubusercontent.com/ColeW-Picaro/init.el/master/init.el" (concat user-emacs-directory "init.el")))
 
 (defun rag-set-face (frame)
   "Configure faces on FRAME creation."
@@ -89,7 +87,7 @@
         (when (member "Input" (font-family-list))
 	  (set-frame-font "Input 12")))))
 (add-hook 'after-make-frame-functions 'rag-set-face)
-(set-frame-font "Input 14" nil)
+(set-frame-font "Input 12" nil)
 
 ;; Disabled *Completions*
 (add-hook 'minibuffer-exit-hook
@@ -102,14 +100,11 @@
 (setq-default message-log-max nil)
 (kill-buffer "*Messages*")
 
-
-
 ;; package requires
 (require 'bind-key)
 
 ;; File loads
 (load "cpp-hpp.el")
-
 
 ;; use-package decl
 
@@ -130,11 +125,9 @@
   (prog-mode . flycheck-mode)
   (c++-mode . (lambda () (setq flycheck-gcc-language-standard "c++17")))
   :bind
-  ("C-c e" . flycheck-list-errors)
-  )
+  ("C-c e" . flycheck-list-errors))
 
 ;; Make this shit look good
-
 (use-package gruvbox-theme
   :ensure t
   :defer)
@@ -285,27 +278,11 @@
 (use-package lua-mode
   :ensure t)
 
-
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#ebdbb2" "#9d0006" "#79740e" "#b57614" "#076678" "#8f3f71" "#427b58" "#3c3836"])
- '(compilation-message-face (quote default))
- '(custom-safe-themes
-   (quote
-    ("a22f40b63f9bc0a69ebc8ba4fbc6b452a4e3f84b80590ba0a92b4ff599e53ad0" default)))
- '(package-selected-packages
-   (quote
-    (ssh emojify ac-emoji counsel-spotify web-mode web-beautify w3m use-package rainbow-mode rainbow-delimiters monokai-theme markdown-preview-eww markdown-mode magit gruvbox-theme glsl-mode eww-lnum dired-hacks-utils dashboard-hackernews counsel company caml auto-complete afternoon-theme)))
- '(pdf-view-midnight-colors (quote ("#fdf4c1" . "#1d2021")))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(mood-line-unimportant-face ((t (:foreground)))))
+;; Where we're going we don't need header files
+(use-package cpp-auto-include
+  :ensure t
+  :bind
+  ("C-c a" . cpp-auto-include))
 
 ;; Key Bindings
 (bind-keys*
@@ -324,9 +301,13 @@
  ("C-c m" . switch-to-minibuffer-window)
  )
 
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(mood-line-unimportant-face ((t (:foreground)))))
 
-(provide 'init)
-;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -343,3 +324,6 @@
    (quote
     (company-tabnine web-mode web-beautify use-package theme-magic rust-mode rainbow-delimiters org-journal neotree multiple-cursors mood-line moe-theme magit gruvbox-theme google-c-style flycheck-rust dashboard counsel company circadian cherry-blossom-theme caml auto-complete)))
  '(pdf-view-midnight-colors (quote ("#282828" . "#f2e5bc"))))
+
+(provide 'init)
+;;; init.el ends here
