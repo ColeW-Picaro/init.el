@@ -108,6 +108,8 @@
 
 ;; use-package decl
 
+(use-package mountaineer-theme)
+
 ;; for ssh
 (use-package tramp)
 
@@ -129,10 +131,6 @@
 
 ;; Make this shit look good
 (use-package gruvbox-theme
-  :ensure t
-  :defer)
-
-(use-package moe-theme
   :ensure t
   :defer)
 
@@ -284,6 +282,11 @@
   :bind
   ("C-c a" . cpp-auto-include))
 
+(use-package markdown-mode
+  :ensure t
+  :mode (("\\.md\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+
 ;; Key Bindings
 (bind-keys*
  ("C-x C-b" . ibuffer)
@@ -317,12 +320,13 @@
    ["#ebdbb2" "#9d0006" "#79740e" "#b57614" "#076678" "#8f3f71" "#427b58" "#3c3836"])
  '(custom-safe-themes
    (quote
-    ("a41b81af6336bd822137d4341f7e16495a49b06c180d6a6417bf9fd1001b6d2b" "c9ddf33b383e74dac7690255dd2c3dfa1961a8e8a1d20e401c6572febef61045" "36ca8f60565af20ef4f30783aa16a26d96c02df7b4e54e9900a5138fb33808da" "04589c18c2087cd6f12c01807eed0bdaa63983787025c209b89c779c61c3a4c4" "b89ae2d35d2e18e4286c8be8aaecb41022c1a306070f64a66fd114310ade88aa" "a06658a45f043cd95549d6845454ad1c1d6e24a99271676ae56157619952394a" "123a8dabd1a0eff6e0c48a03dc6fb2c5e03ebc7062ba531543dfbce587e86f2a" default)))
+    (default)))
  '(fringe-mode 6 nil (fringe))
  '(linum-format (quote dynamic))
+ '(org-agenda-files (quote ("~/todo.org")))
  '(package-selected-packages
    (quote
-    (company-tabnine web-mode web-beautify use-package theme-magic rust-mode rainbow-delimiters org-journal neotree multiple-cursors mood-line moe-theme magit gruvbox-theme google-c-style flycheck-rust dashboard counsel company circadian cherry-blossom-theme caml auto-complete)))
+    (company-tabnine web-mode web-beautify use-package theme-magic rust-mode rainbow-delimiters org-journal neotree multiple-cursors mood-line magit google-c-style flycheck-rust dashboard counsel company circadian cherry-blossom-theme caml auto-complete)))
  '(pdf-view-midnight-colors (quote ("#282828" . "#f2e5bc"))))
 
 (provide 'init)
